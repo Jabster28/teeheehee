@@ -7,6 +7,7 @@
       id="meme-video"
       :src="`https://teeheehee.club/meme/(${$route.query.hash}) ${$route.query.tags}`"
       onLoad="makeVideo"
+      autoplay
     >
       <source
         :src="`https://teeheehee.club/meme/(${$route.query.hash}) ${$route.query.tags}`"
@@ -25,9 +26,19 @@ import Vue from 'vue'
 import '../static/plyr.css'
 import Plyr from 'plyr'
 export default Vue.extend({
-  data(): { plyr: Plyr | undefined } {
+  data(): { plyr: Plyr | undefined; controls: string[] } {
     return {
       plyr: undefined,
+      controls: [
+        'play-large', // The large play button in the center
+        'restart', // Restart playback
+        'play', // Play/pause playback
+        'progress', // The progress bar and scrubber for playback and buffering
+        'mute', // Toggle mute
+        'download', // Download the video
+        'volume', // Volume control
+        'fullscreen', // Toggle fullscreen
+      ],
     }
   },
   mounted() {
@@ -36,7 +47,7 @@ export default Vue.extend({
         this.$route.query.tags.includes('mp4') ||
         this.$route.query.tags.includes('mov')
       ) {
-        this.plyr = new Plyr('#meme-video')
+        this.plyr = new Plyr('#meme-video', { controls: this.controls })
       }
     })
   },

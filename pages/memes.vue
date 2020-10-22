@@ -98,9 +98,9 @@ export default Vue.extend({
       this.$nextTick().then(() => {
         this.memes.forEach((i) => {
           if (i.name.includes('mp4') || i.name.includes('mov')) {
-            this.players.push(
-              new Plyr('#meme-' + i.hash, { controls: this.controls })
-            )
+            // this.players.push(
+            //   new Plyr('#meme-' + i.hash, { controls: this.controls })
+            // )
           }
         })
       })
