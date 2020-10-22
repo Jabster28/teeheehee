@@ -5,7 +5,7 @@
         $route.params.tags.includes('mp4') || $route.params.tags.includes('mov')
       "
       id="meme-video"
-      :src="`http://teeheehee.club/memes/(${$route.params.hash}) ${$route.params.tags}`"
+      :src="`https://teeheehee.club/memes/(${$route.params.hash}) ${$route.params.tags}`"
       onLoad="makeVideo"
     >
       <source

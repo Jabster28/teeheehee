@@ -10,7 +10,7 @@
         v-if="meme.name.includes('mp4') || meme.name.includes('mov')"
         :id="'meme-' + meme.hash"
         :src="
-          'http://teeheehee.club/memes/' +
+          'https://teeheehee.club/memes/' +
           encodeURIComponent(`(${meme.hash}) ${meme.name}`)
         "
         class="rounded-t-lg"
@@ -19,7 +19,7 @@
         <source
           class="rounded-t-lg"
           :src="
-            'http://teeheehee.club/memes/' +
+            'https://teeheehee.club/memes/' +
             encodeURIComponent(`(${meme.hash}) ${meme.name}`)
           "
           type="video/mov"
@@ -33,7 +33,7 @@
           meme.name.includes('jpeg')
         "
         :src="
-          'http://teeheehee.club/memes/' +
+          'https://teeheehee.club/memes/' +
           encodeURIComponent(`(${meme.hash}) ${meme.name}`)
         "
         class="rounded-t-lg w-full object-cover h-64"
@@ -80,7 +80,7 @@ export default Vue.extend({
   mounted() {
     // @ts-ignore
     window.players = this.players
-    axios('http://teeheehee.club/list.php').then(({ data }) => {
+    axios('https://teeheehee.club/list.php').then(({ data }) => {
       data.forEach((e: string) => {
         this.memes.push({
           tags: [
