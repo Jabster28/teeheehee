@@ -106,11 +106,6 @@ export default Vue.extend({
       })
     })
   },
-  methods: {
-    makeVideo(e: Event) {
-      console.log(e)
-    },
-  },
 })
 </script>
 
