@@ -3,14 +3,14 @@
     <a
       v-for="meme in memes"
       :key="meme.hash"
-      :href="'/memes/' + [meme.hash, meme.name].join('/')"
+      :href="`/render?hash=${meme.hash}&tags=${encodeURIComponent(meme.name)}`"
       class="m-2 block rounded-lg shadow-md hover:shadow-lg cursor-pointer transition duration-100 ease-in-out"
     >
       <video
         v-if="meme.name.includes('mp4') || meme.name.includes('mov')"
         :id="'meme-' + meme.hash"
         :src="
-          'https://teeheehee.club/memes/' +
+          'https://teeheehee.club/meme/' +
           encodeURIComponent(`(${meme.hash}) ${meme.name}`)
         "
         class="rounded-t-lg"
@@ -19,7 +19,7 @@
         <source
           class="rounded-t-lg"
           :src="
-            'https://teeheehee.club/memes/' +
+            'https://teeheehee.club/meme/' +
             encodeURIComponent(`(${meme.hash}) ${meme.name}`)
           "
           type="video/mov"
@@ -33,7 +33,7 @@
           meme.name.includes('jpeg')
         "
         :src="
-          'https://teeheehee.club/memes/' +
+          'https://teeheehee.club/meme/' +
           encodeURIComponent(`(${meme.hash}) ${meme.name}`)
         "
         class="rounded-t-lg w-full object-cover h-64"
@@ -54,7 +54,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import axios from 'axios'
-import '../../static/plyr.css'
+import '../static/plyr.css'
 import Plyr from 'plyr'
 
 export default Vue.extend({
