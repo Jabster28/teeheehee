@@ -6,7 +6,6 @@
       :class="`m-2 block rounded-lg shadow-md hover:shadow-lg cursor-pointer transition duration-100 ease-in-out${
         copiedMeme == meme.hash ? ' bg-green-500' : ''
       }`"
-      @click="copyMeme(meme, $event)"
     >
       <a
         v-if="meme.name.includes('mp4') || meme.name.includes('mov')"
@@ -45,7 +44,7 @@
         "
         class="rounded-t-lg w-full object-cover h-64"
       />
-      <div class="p-3 border-t border-gray-300">
+      <div class="p-3 border-t border-gray-300" @click="copyMeme(meme, $event)">
         <a
           v-for="tag in meme.tags"
           :key="tag"
