@@ -1,13 +1,31 @@
 <template>
   <div>
-    <audio v-if="music == 'earrape'" id="video" src="~assets/earrape.webm" loop>
+    <audio
+      v-if="music == 'earrape'"
+      id="video"
+      autoplay
+      src="~assets/earrape.webm"
+      loop
+    >
       <source src="~assets/earrape.webm" type="video/webm" size="720" />
     </audio>
-    <audio v-if="music == 'kahoot'" id="video" src="~assets/kahoot.webm" loop>
+    <audio
+      v-if="music == 'kahoot'"
+      id="video"
+      autoplay
+      src="~assets/kahoot.webm"
+      loop
+    >
       <source src="~assets/kahoot.webm" type="video/webm" size="720" />
     </audio>
 
-    <audio v-if="music == 'indian'" id="video" src="~assets/indian.webm" loop>
+    <audio
+      v-if="music == 'indian'"
+      id="video"
+      autoplay
+      src="~assets/indian.webm"
+      loop
+    >
       <source src="~assets/indian.webm" type="video/webm" size="720" />
     </audio>
     <br />
