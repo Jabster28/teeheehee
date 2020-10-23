@@ -1,7 +1,9 @@
 export default {
   // Disable server-side rendering (https://go.nuxtjs.dev/ssr-mode)
   ssr: false,
-
+  server: {
+    host: '0.0.0.0',
+  },
   // Target (https://go.nuxtjs.dev/config-target)
   target: 'static',
 
@@ -10,7 +12,11 @@ export default {
     title: 'teeheehee',
     meta: [
       { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      {
+        name: 'viewport',
+        content:
+          'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"',
+      },
       { hid: 'description', name: 'description', content: '' },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
@@ -33,6 +39,7 @@ export default {
     '@nuxtjs/stylelint-module',
     // https://go.nuxtjs.dev/tailwindcss
     '@nuxtjs/tailwindcss',
+    '@nuxtjs/google-analytics',
   ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
@@ -41,6 +48,7 @@ export default {
     '@nuxtjs/pwa',
     // https://go.nuxtjs.dev/content
     '@nuxt/content',
+    '@nuxtjs/device',
   ],
 
   // Content module configuration (https://go.nuxtjs.dev/config-content)

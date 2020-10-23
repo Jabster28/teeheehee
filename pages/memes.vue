@@ -1,30 +1,35 @@
 <template>
   <div class="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-8">
-    <a
+    <nuxt-link
       v-for="meme in memes"
       :key="meme.hash"
-      :href="`/render?hash=${meme.hash}&tags=${encodeURIComponent(meme.name)}`"
+      :to="`/render?hash=${meme.hash}&tags=${encodeURIComponent(meme.name)}`"
       class="m-2 block rounded-lg shadow-md hover:shadow-lg cursor-pointer transition duration-100 ease-in-out"
     >
-      <video
+      <a
         v-if="meme.name.includes('mp4') || meme.name.includes('mov')"
-        :id="'meme-' + meme.hash"
-        :src="
-          'https://teeheehee.club/meme/' +
-          encodeURIComponent(`(${meme.hash}) ${meme.name}`)
-        "
-        class="rounded-t-lg"
-        onLoad="makeVideo"
+        @click="not"
       >
-        <source
-          class="rounded-t-lg"
+        <video
+          :id="'meme-' + meme.hash"
+          preload="metadata"
           :src="
             'https://teeheehee.club/meme/' +
             encodeURIComponent(`(${meme.hash}) ${meme.name}`)
           "
-          type="video/mov"
-        />
-      </video>
+          class="rounded-t-lg"
+          onLoad="makeVideo"
+        >
+          <source
+            class="rounded-t-lg"
+            :src="
+              'https://teeheehee.club/meme/' +
+              encodeURIComponent(`(${meme.hash}) ${meme.name}#t=0.1`)
+            "
+            type="video/mov"
+          />
+        </video>
+      </a>
       <img
         v-else-if="
           meme.name.includes('png') ||
@@ -40,14 +45,20 @@
       />
       <div class="p-3 border-t border-gray-300">
         <div
+          class="bg-green-500 text-white rounded-full mx-1 px-4 py-1 my-1 font-bold inline-block"
+          @click="copyMeme(meme, $event)"
+        >
+          Copy
+        </div>
+        <a
           v-for="tag in meme.tags"
           :key="tag"
           class="bg-blue-500 text-white rounded-full mx-1 px-4 py-1 my-1 font-bold inline-block"
         >
           {{ tag }}
-        </div>
+        </a>
       </div>
-    </a>
+    </nuxt-link>
   </div>
 </template>
 
@@ -68,14 +79,23 @@ export default Vue.extend({
       players: [],
       controls: [
         'play-large', // The large play button in the center
-        'restart', // Restart playback
-        'play', // Play/pause playback
+        'play',
+        // 'restart', // Restart playback
         'progress', // The progress bar and scrubber for playback and buffering
-        'mute', // Toggle mute
-        'volume', // Volume control
+        // 'mute', // Toggle mute
+        // 'volume', // Volume control
         'fullscreen', // Toggle fullscreen
       ],
     }
+  },
+  beforeDestroy() {
+    window.sessionStorage.setItem(
+      'scroll',
+      JSON.stringify({
+        x: window.scrollX,
+        y: window.scrollY,
+      })
+    )
   },
   mounted() {
     // @ts-ignore
@@ -96,15 +116,40 @@ export default Vue.extend({
         })
       })
       this.$nextTick().then(() => {
+        const scrollPos = window.sessionStorage.getItem('scroll')
+        if (scrollPos) {
+          const scroll = JSON.parse(scrollPos)
+          window.scrollTo(scroll.x, scroll.y)
+        }
         this.memes.forEach((i) => {
           if (i.name.includes('mp4') || i.name.includes('mov')) {
-            // this.players.push(
-            //   new Plyr('#meme-' + i.hash, { controls: this.controls })
-            // )
+            this.players.push(
+              new Plyr('#meme-' + i.hash, { controls: this.controls })
+            )
           }
         })
       })
     })
+  },
+  methods: {
+    not(e: Event) {
+      e.preventDefault()
+    },
+    copyMeme(
+      meme: { name: string; hash: string; tags: string[] },
+      event: MouseEvent
+    ) {
+      event.preventDefault()
+      navigator.clipboard
+        .writeText(
+          'https://teeheehee.club/meme/' +
+            encodeURIComponent(`(${meme.hash}) ${meme.name}`)
+        )
+        .then(() => {
+          // @ts-ignore
+          event.target!.textContent = 'Copied!'
+        })
+    },
   },
 })
 </script>

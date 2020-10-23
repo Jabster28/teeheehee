@@ -18,6 +18,10 @@ export default Vue.extend({
         }
       })
     }
+    // eslint-disable-next-line nuxt/no-env-in-hooks
+    if (process.client && window) {
+      window.history.scrollRestoration = 'auto'
+    }
   },
 })
 </script>
