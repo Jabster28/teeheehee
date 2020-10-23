@@ -1,10 +1,12 @@
 <template>
   <div class="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-8">
-    <nuxt-link
+    <a
       v-for="meme in memes"
       :key="meme.hash"
-      :to="`/render?hash=${meme.hash}&tags=${encodeURIComponent(meme.name)}`"
-      class="m-2 block rounded-lg shadow-md hover:shadow-lg cursor-pointer transition duration-100 ease-in-out"
+      :class="`m-2 block rounded-lg shadow-md hover:shadow-lg cursor-pointer transition duration-100 ease-in-out${
+        copiedMeme == meme.hash ? ' bg-green-500' : ''
+      }`"
+      @click="copyMeme(meme, $event)"
     >
       <a
         v-if="meme.name.includes('mp4') || meme.name.includes('mov')"
@@ -44,12 +46,6 @@
         class="rounded-t-lg w-full object-cover h-64"
       />
       <div class="p-3 border-t border-gray-300">
-        <div
-          class="bg-green-500 text-white rounded-full mx-1 px-4 py-1 my-1 font-bold inline-block"
-          @click="copyMeme(meme, $event)"
-        >
-          Copy
-        </div>
         <a
           v-for="tag in meme.tags"
           :key="tag"
@@ -58,7 +54,7 @@
           {{ tag }}
         </a>
       </div>
-    </nuxt-link>
+    </a>
   </div>
 </template>
 
@@ -71,12 +67,14 @@ import Plyr from 'plyr'
 export default Vue.extend({
   data(): {
     memes: { name: string; hash: string; tags: string[] }[]
+    copiedMeme: string
     players: Plyr[]
     controls: string[]
   } {
     return {
       memes: [],
       players: [],
+      copiedMeme: '',
       controls: [
         'play-large', // The large play button in the center
         'play',
@@ -105,7 +103,7 @@ export default Vue.extend({
         this.memes.push({
           tags: [
             ...e.split('.')[0].split(' ').slice(1),
-            ...(e.includes('mp4' || e.includes('mov')) ? ['video'] : ['image']),
+            ...(e.includes('mp4') || e.includes('mov') ? ['video'] : ['image']),
           ],
           name: e.split(' ').slice(1).join(' '),
           hash: (e.split(' ').shift() || '')
@@ -146,8 +144,10 @@ export default Vue.extend({
             encodeURIComponent(`(${meme.hash}) ${meme.name}`)
         )
         .then(() => {
-          // @ts-ignore
-          event.target!.textContent = 'Copied!'
+          this.copiedMeme = meme.hash
+          setTimeout(() => {
+            this.copiedMeme = ''
+          }, 250)
         })
     },
   },
@@ -157,6 +157,7 @@ export default Vue.extend({
 <style>
 * {
   box-sizing: border-box;
+  transition: color 0.5s background-color 0.5s;
 }
 .plyr {
   border-top-left-radius: 8px;
