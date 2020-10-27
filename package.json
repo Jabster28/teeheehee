@@ -34,7 +34,7 @@
     "nuxt": "2.14.7",
     "plyr": "3.6.2",
     "tls": "0.0.1",
-    "vue-scroll-behavior": "^0.3.0",
+    "vue-scroll-behavior": "0.3.0",
     "zalgo-js": "1.0.0"
   },
   "devDependencies": {
@@ -42,11 +42,11 @@
     "@commitlint/config-conventional": "11.0.0",
     "@nuxt/types": "2.14.7",
     "@nuxt/typescript-build": "2.0.3",
-    "@nuxtjs/device": "^1.2.7",
+    "@nuxtjs/device": "1.2.7",
     "@nuxtjs/eslint-config": "3.1.0",
     "@nuxtjs/eslint-config-typescript": "3.0.0",
     "@nuxtjs/eslint-module": "2.0.0",
-    "@nuxtjs/google-analytics": "^2.4.0",
+    "@nuxtjs/google-analytics": "2.4.0",
     "@nuxtjs/stylelint-module": "4.0.0",
     "@nuxtjs/tailwindcss": "3.1.0",
     "@vue/test-utils": "1.1.0",
