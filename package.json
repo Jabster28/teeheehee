@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@nuxt/content": "1.10.0",
-    "@nuxt/typescript-runtime": "2.0.0",
+    "@nuxt/typescript-runtime": "2.1.0",
     "@nuxtjs/pwa": "3.2.2",
     "axios": "0.20.0",
     "basic-ftp": "4.6.2",
