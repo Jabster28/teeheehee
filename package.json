@@ -26,7 +26,7 @@
     "@nuxt/content": "1.10.0",
     "@nuxt/typescript-runtime": "2.0.0",
     "@nuxtjs/pwa": "3.2.2",
-    "axios": "0.20.0",
+    "axios": "0.27.2",
     "basic-ftp": "4.6.2",
     "core-js": "3.6.5",
     "fs": "0.0.2",
